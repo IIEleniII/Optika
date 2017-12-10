@@ -6,8 +6,12 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		 PC pc1= new PC();
+		
+		 
 		 for(int f=0;f<10;f++) {
-		 pc1.arrive_broadcast_In_Queue();
+		
+		 pc1.arrive_broadcast_In_Queue(f);
+		
 		 }
 	}
 
