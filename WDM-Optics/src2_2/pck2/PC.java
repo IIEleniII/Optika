@@ -15,6 +15,7 @@ import java.util.Random;
 public class PC {
 		
 	private int id ;
+	private int rmv_pck;
 	private double probability=0;
 	
 	private Packet pck = new Packet();
@@ -49,7 +50,7 @@ public class PC {
 					wait_queue.add(i);
 					//Object[] arr = wait_queue.toArray(); 
 					//System.out.println("queue my empty first:"+ arr[i].toString());
-					System.out.println(probability);
+					System.out.println("Probability is: "+probability);
 					System.out.println("line contains key:"+ packet_line.keySet());
 					System.out.println("line contains start time:"+ packet_line.values());
 					
@@ -59,10 +60,11 @@ public class PC {
 										pck.set_id(wait_queue.peek());
 							
 											map.put(pck.get_id(),(pck.stop_timer()-pck.start_timer())); //map.put(pck.get_id(),(pck.stop_timer()-map.getValue()));
-												int rmv_pck=wait_queue.poll();
+												 rmv_pck=wait_queue.poll();
 													packet_line.remove(rmv_pck);
 													
 														System.out.println("My packet line:" +  packet_line.size());
+														System.out.println("My map of packets is "+ map.keySet());
 														 probability=random();
 														 
 					}else {
@@ -83,7 +85,7 @@ public class PC {
 					wait_queue.add(i);
 //					Object[] arr = wait_queue.toArray(); 
 //					System.out.println("queue wa first:"+ arr[i].toString());
-					System.out.println(probability);
+					System.out.println("Probability is: "+probability);
 					System.out.println("line contains key:"+ packet_line.keySet());
 					System.out.println("line contains start time:"+ packet_line.values());
 					
@@ -94,10 +96,11 @@ public class PC {
 						pck.set_id(wait_queue.peek());
 			
 							map.put(pck.get_id(),(pck.stop_timer()-pck.start_timer())); //map.put(pck.get_id(),(pck.stop_timer()-map.getValue()));
-								int rmv_pck=wait_queue.poll();
+								rmv_pck=wait_queue.poll();
 									packet_line.remove(rmv_pck);
 									
 										System.out.println("My packet line:" +  packet_line.size());
+										System.out.println("My map of packets is "+ map.keySet());
 										 probability=random();
 						}else {
 	 
@@ -109,7 +112,6 @@ public class PC {
 				}
 				
 				
-				i++;
 		 }
 		
 		}
