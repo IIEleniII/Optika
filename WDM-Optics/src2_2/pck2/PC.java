@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author trach
@@ -37,22 +38,33 @@ public class PC {
 		return randomfloat;
 	}
 	
+
+	public Long map_value(int key){
+		return map.get(key);
+	}
 	
+	public void map_remove(int key) {
+		map.remove(key);
+	}
+	
+	public int map_size() {
+		return map.size();
+	}
 	
 	public void arrive_broadcast_In_Queue(int i ) { //Check if packet gets in and out of queue 
 		 probability=random();
 		 while(probability>0.3) {
 			 
 			  //greater possibility to be broadcasted, as it's closer to p=1
-				if(wait_queue.size()== 0) {
+				if(wait_queue.isEmpty()) {
 					pck.set_id(i);
 					packet_line.put(pck.get_id(),pck.start_timer());
 					wait_queue.add(i);
 					//Object[] arr = wait_queue.toArray(); 
 					//System.out.println("queue my empty first:"+ arr[i].toString());
-					System.out.println("Probability is: "+probability);
-					System.out.println("line contains key:"+ packet_line.keySet());
-					System.out.println("line contains start time:"+ packet_line.values());
+//					System.out.println("Probability is: "+probability);
+//					System.out.println("line contains key:"+ packet_line.keySet());
+//					System.out.println("line contains start time:"+ packet_line.values());
 					
 					if(probability==0.5 && probability<0.6) {
 					 
@@ -63,13 +75,13 @@ public class PC {
 												 rmv_pck=wait_queue.poll();
 													packet_line.remove(rmv_pck);
 													
-														System.out.println("My packet line:" +  packet_line.size());
-														System.out.println("My map of packets is "+ map.keySet());
+//														System.out.println("My packet line:" +  packet_line.size());
+//														System.out.println("My map of packets is "+ map.keySet());
 														 probability=random();
 														 
 					}else {
 					 
-					  System.out.println("Not packet broadcasted");
+					  //System.out.println("Not packet broadcasted");
 					  probability=random();
 					 			
 					 }
@@ -79,17 +91,17 @@ public class PC {
 //					}
 				}
 				else{
-					if(wait_queue.size()>0 && wait_queue.size()<8) {
+					if(wait_queue.size()!=0 && wait_queue.size()<9) {
 					pck.set_id(i);
 					packet_line.put(pck.get_id(),pck.start_timer());
 					wait_queue.add(i);
 //					Object[] arr = wait_queue.toArray(); 
 //					System.out.println("queue wa first:"+ arr[i].toString());
-					System.out.println("Probability is: "+probability);
-					System.out.println("line contains key:"+ packet_line.keySet());
-					System.out.println("line contains start time:"+ packet_line.values());
-					
-					
+//					System.out.println("Probability is: "+probability);
+//					System.out.println("line contains key:"+ packet_line.keySet());
+//					System.out.println("line contains start time:"+ packet_line.values());
+//					
+//					
 					//System.out.println("Has waited in afull  queue:"+wait_queue.peek());
 					if(probability>0.5 && probability<0.6) {
 						  //if(map.containsKey(wait_queue.peek())) {
@@ -99,12 +111,12 @@ public class PC {
 								rmv_pck=wait_queue.poll();
 									packet_line.remove(rmv_pck);
 									
-										System.out.println("My packet line:" +  packet_line.size());
-										System.out.println("My map of packets is "+ map.keySet());
+//										System.out.println("My packet line:" +  packet_line.size());
+//										System.out.println("My map of packets is "+ map.keySet());
 										 probability=random();
 						}else {
 	 
-								System.out.println("Not packet broadcasted now");
+							//	System.out.println("Not packet broadcasted now");
 								 probability=random();
 	 			
 							}
