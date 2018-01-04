@@ -1,0 +1,8 @@
+/tmp/java_QU1ebK/Station.java:80: error: class, interface, or enum expected
+}
+^
+/tmp/java_QU1ebK/CD.java:33: error: ';' expected
+     startTimerOut()
+                    ^
+2 errors
+
