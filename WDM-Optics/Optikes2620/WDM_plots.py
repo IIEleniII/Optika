@@ -28,10 +28,10 @@ with open('probability.py') as f:
 prob = [x.strip() for x in prob]
 prob = [float(i) for i in prob]
 
-
+#Plot reults
 plt.subplot(2, 1, 1)
 plt.plot(throughput, prob, 'o')
-plt.axis([0,0.6 , 0, 1.0])
+plt.axis([0,1.0 , 0, 1.0])
 plt.title('PLOTS')
 plt.ylabel('probability')
 plt.xlabel('Throughput')
@@ -39,7 +39,7 @@ plt.xlabel('Throughput')
 plt.subplot(2, 1, 2)
 plt.plot(delay , prob, 'o')
 plt.axis([0,30000 , 0.0, 1.0])
-plt.xlabel('AvgDelay')
+plt.xlabel('AvgDelay(ns)')
 plt.ylabel('probability')
 
 plt.show()

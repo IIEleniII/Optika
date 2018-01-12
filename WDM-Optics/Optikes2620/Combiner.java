@@ -14,15 +14,13 @@ import java.util.Properties;
  * */
 public class Combiner {
 	private static final Long NULL = null;
-	// Packet Collision Observation
 
 	private static final Boolean FALSE = null;
 	private static final Boolean TRUE = null;
 
 	int pc1PacketsLeft;
 	int pc2PacketsLeft;
-	// static int totalpacketsentPc1;
-	// static int totalpacketsentPc2;
+
 	static int totalpacketsent_AC;
 	int counter = 0;
 
@@ -32,8 +30,6 @@ public class Combiner {
 
 	public static Long delaySum;
 
-	// Compare PC1 map with PC2 map and save the total number of packets broadcasted
-	// from both stations
 	public void compare_packet_list(PC pc1, PC pc2, int pc1size, int pc2size) {
 
 		System.out.println("PC1:Keys" + pc1.map_keySet() + "values:" + pc1.map_values());
@@ -46,12 +42,8 @@ public class Combiner {
 		pc2PacketsLeft = pc2.map_size() - counter;
 
 		totalpacketsent_AC = pc1PacketsLeft + pc2PacketsLeft;
-		
 
-		System.out.println("Total packet sent:" + totalpacketsent_AC);// delay1,delay2
-//		System.out.println("PC1:Keys" + pc1.map_keySet_prob() + "prob:" + pc1.map_values_prob());
-//		System.out.println("PC2:Keys" + pc2.map_keySet_prob() + "prob:" + pc2.map_values_prob());
-
+		//System.out.println("Total packet sent:" + totalpacketsent_AC);// 
 
 	}
 
@@ -71,8 +63,6 @@ public class Combiner {
 						System.out.println("There's been a collision");
 						counter++; // Counts the times of collision
 						collision_key_collector.add(entry1); // saves the packet key which collied
-					//	pc1.map_remove_prob(entry1);
-						//pc2.map_remove_prob(entry1);
 
 					} else {
 
@@ -87,10 +77,10 @@ public class Combiner {
 			if (delaySum < 0) {
 				System.out.println(
 						"Collision occured in queues consisting of only one packet.So The delay is negative as there was indeed dealy for those packets,but not for others to come");
-				
+
 				System.out.println("Delay total:" + delaySum.longValue());
 			}
-			
+
 			System.out.println("Delay total:" + delaySum.longValue());
 
 		}
@@ -100,17 +90,16 @@ public class Combiner {
 		int search;
 		if (arraylist.size() == 0) {
 			System.out.println("No collision occured");
-			
 
 		} else {
 			for (int i = 0; i < arraylist.size(); i++) {
 				search = arraylist.get(i);
 				for (int j = 0; j < pc.map_size(); j++) {
-					if (j == search) {
+					if (j == search) { //ignore packets that collied
 						continue;
 					}
 					delay += (long) pc.map_value(j);
-					//pc.map_prob.get(j,pc.prob);
+					
 					System.out.println(pc.map_value(j));
 				}
 

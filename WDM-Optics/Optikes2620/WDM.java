@@ -1,19 +1,16 @@
 import java.util.Random;
 
-
-
-public class Main {
+public class WDM {
 	static double throughput = 0;
 	static Long average_Delay = (long) 0;
 	static Long thedelay = (long) 0;
 	static int totalpacketsent = 0;
-	public static void main(String[] args) {
-		
+
+	public static void wdm(String[] args) {
+
 		double probability;
 		int f = 0, k = 0;
-		
-		
-		
+
 		random rand = new random();
 
 		final int PACKETNUMBER = 10;
@@ -23,10 +20,9 @@ public class Main {
 
 		Combiner combine = new Combiner();
 
-		
-		// 100packet sent
-		
-		
+		// Packets sent to PCs
+		// Additional checks are made
+
 		for (f = 0; f < PACKETNUMBER; f++) {
 			probability = rand.random();
 			System.out.println("PC1");
@@ -34,8 +30,7 @@ public class Main {
 				continue;
 			} else {
 				pc1.arrive_broadcast_In_Queue(probability);
-				// pc2.arrive_broadcast_In_Queue(probability);
-				// probability=random();
+
 			}
 		}
 
@@ -46,25 +41,21 @@ public class Main {
 				continue;
 			} else {
 				pc2.arrive_broadcast_In_Queue(probability);
-				// pc2.arrive_broadcast_In_Queue(probability);
-				// probability=random();
+
 			}
 
-			// if (probability > 0.3) {
-			//
-			// pc2.arrive_broadcast_In_Queue(probability);
-			// // probability=random();
-			// }
 		}
+		//
+		// Throughput,delay,slots
 
-		// for(int j=0;j<(pc1.map_size()+1);j++) {
 		if (pc1.map_size() == 0 && pc2.map_size() == 0) {
 			System.out.println("Empty maps.No broadcast from any PCS" + totalpacketsent);
-			 totalpacketsent = 0;
-			 PC.slots = 0;
-			 thedelay = (long) 0;
+			totalpacketsent = 0;
+			PC.slots = 0;
+			thedelay = (long) 0;
 			average_Delay = (long) 0;
 			throughput = 0;
+			System.out.println("Packet delay:" + thedelay);
 			System.out.println("totalpacketsent:" + totalpacketsent);
 			System.out.println("Total slots used from stations:" + PC.slots);
 
@@ -73,24 +64,32 @@ public class Main {
 			totalpacketsent = pc2.map_size();
 			System.out.println("PC2 will broadcast:" + totalpacketsent + "packets");
 			PC.slots = totalpacketsent;
-			thedelay = (long) 0;
+			
+			for(int o=0;o<pc2.map_size();o++) {
+				thedelay += pc2.map_value(o);
+			}
 			throughput = (double) totalpacketsent / (double) PC.slots;
 			average_Delay = thedelay / PACKETNUMBER;
-			System.out.println("Throughput:" + throughput);
-			System.out.println("Average delay:" + average_Delay);
+			// System.out.println("Throughput:" + throughput);
+			// System.out.println("Average delay:" + average_Delay);
+			System.out.println("Packet delay:" + thedelay);
 			System.out.println("totalpacketsent:" + totalpacketsent);
 			System.out.println("Total slots used from stations:" + PC.slots);
 		}
 		if (pc1.map_size() != 0 && pc2.map_size() == 0) {
 			totalpacketsent = pc1.map_size();
-			//System.out.println("PC1 will broadcast:" + totalpacketsent + "packets");
+
 			PC.slots = totalpacketsent;
 			
-			thedelay = (long) 0;
+			for(int o=0;o<pc1.map_size();o++) {
+				thedelay += pc1.map_value(o);
+			}
+			
 			throughput = (double) totalpacketsent / (double) PC.slots;
 			average_Delay = thedelay / PACKETNUMBER;
-			System.out.println("Throughput:" + throughput);
-			System.out.println("Average delay:" + average_Delay);
+			// System.out.println("Throughput:" + throughput);
+			// System.out.println("Average delay:" + average_Delay);
+			System.out.println("Packet delay:" + thedelay);
 			System.out.println("totalpacketsent:" + totalpacketsent);
 			System.out.println("Total slots used from stations:" + PC.slots);
 		}
@@ -101,25 +100,17 @@ public class Main {
 			thedelay = Combiner.delaySum.longValue();
 			average_Delay = thedelay / PACKETNUMBER;
 			throughput = (double) totalpacketsent / (double) PC.slots;
-			
-//			pc1. map_values_prob();
-//			if(pc1.map_size_prob() !=0) {
-//				for(int s=0;s<pc1.map_size_prob();s++) {
-//			pc1. replace_key_prob(throughput,s);
-//			}
-//			}
-			//System.out.println("PC1:Keys" + pc1.map_keySet_prob() + "prob:" + pc1.map_values_prob());
-			System.out.println("Throughput:" + throughput);
-			System.out.println("Average delay:" + average_Delay);
+
+			// System.out.println("Throughput:" + throughput);
+			// System.out.println("Average delay:" + average_Delay);
+			System.out.println("Packets delay:" + thedelay);
 			System.out.println("totalpacketsent:" + totalpacketsent);
 			System.out.println("Total slots used from stations:" + PC.slots);
 		}
+		//
 
-		// System.out.println("Throughput:" + throughput);
-		// System.out.println("Average delay:" +average_Delay);
-		// System.out.println("Total slots used from stations:" + PC.slots);
-		 
 	}
+
 	public static double returnThroughput() {
 		return throughput;
 
@@ -129,20 +120,4 @@ public class Main {
 		return average_Delay;
 	}
 
-//	public static int returnSlots() {
-//		return PC.slots;
-//	}
-//	
-//	public static Long returnDelay() {
-//		return thedelay;
-//	}
-//	
-//	public static int returnTolatPackets() {
-//		return totalpacketsent;
-//	}
-//	
-	
-	
-	}
-
-
+}
