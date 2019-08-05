@@ -8,7 +8,8 @@ public class Combiner {
 		//edw mpainei to broadcast to PC
 	}
 	
-	public boolean compare_packet_list()
-	//sugkrish 1 kai 2 keliwn
-	return;
+//	public boolean compare_packet_list() {
+//	//sugkrish 1 kai 2 keliwn
+//	return ;
+//	}
 }
