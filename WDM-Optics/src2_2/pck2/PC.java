@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class PC {
 		
-	private int id;
-	private int test=0;
+	private int id ;
+	private double probability=0;
 	
 	private Packet pck = new Packet();
 	private PriorityQueue<Integer> wait_queue = new PriorityQueue<Integer>();
@@ -36,10 +36,10 @@ public class PC {
 		return randomfloat;
 	}
 	
-	int i=0;
 	
-	public void arrive_broadcast_In_Queue() { //Check if packet gets in and out of queue 
-		double probability=random();
+	
+	public void arrive_broadcast_In_Queue(int i ) { //Check if packet gets in and out of queue 
+		 probability=random();
 		 while(probability>0.3) {
 			 
 			  //greater possibility to be broadcasted, as it's closer to p=1
@@ -47,48 +47,64 @@ public class PC {
 					pck.set_id(i);
 					packet_line.put(pck.get_id(),pck.start_timer());
 					wait_queue.add(i);
-					Object[] arr = wait_queue.toArray(); 
-					System.out.println("queue wa emty first:"+ arr[i].toString());
-					System.out.println("line contains:"+ packet_line.keySet());
-					System.out.println("line contains:"+ packet_line.values());
+					//Object[] arr = wait_queue.toArray(); 
+					//System.out.println("queue my empty first:"+ arr[i].toString());
+					System.out.println(probability);
+					System.out.println("line contains key:"+ packet_line.keySet());
+					System.out.println("line contains start time:"+ packet_line.values());
 					
+					if(probability==0.5 && probability<0.6) {
 					 
-					
-					if(test==0) {//probability ==0.5
-					 if(map.containsKey(wait_queue.peek())) {
-							pck.set_id(wait_queue.peek());
+					  //if(map.containsKey(wait_queue.peek())) {
+										pck.set_id(wait_queue.peek());
 							
-							map.put(pck.get_id(),(pck.stop_timer()-pck.start_timer())); //map.put(pck.get_id(),(pck.stop_timer()-map.getValue()));
-							int rmv_pck=wait_queue.poll();
-							packet_line.remove(rmv_pck);
-							System.out.println("My packet line:" + packet_line);
+											map.put(pck.get_id(),(pck.stop_timer()-pck.start_timer())); //map.put(pck.get_id(),(pck.stop_timer()-map.getValue()));
+												int rmv_pck=wait_queue.poll();
+													packet_line.remove(rmv_pck);
+													
+														System.out.println("My packet line:" +  packet_line.size());
+														 probability=random();
+														 
+					}else {
+					 
+					  System.out.println("Not packet broadcasted");
+					  probability=random();
+					 			
 					 }
-					}
+					
+//					if(test==0) {//probability ==0.5
+//					
+//					}
 				}
 				else{
-					if(wait_queue.size()>0 && wait_queue.size()<4) {
+					if(wait_queue.size()>0 && wait_queue.size()<8) {
 					pck.set_id(i);
 					packet_line.put(pck.get_id(),pck.start_timer());
 					wait_queue.add(i);
-					Object[] arr = wait_queue.toArray(); 
-					System.out.println("queue wa first:"+ arr[i].toString());
-					System.out.println("line contains:"+ packet_line.keySet());
-					System.out.println("line contains:"+ packet_line.values());
+//					Object[] arr = wait_queue.toArray(); 
+//					System.out.println("queue wa first:"+ arr[i].toString());
+					System.out.println(probability);
+					System.out.println("line contains key:"+ packet_line.keySet());
+					System.out.println("line contains start time:"+ packet_line.values());
 					
 					
 					//System.out.println("Has waited in afull  queue:"+wait_queue.peek());
-					if(probability==0.5) {
-						if(map.containsKey(wait_queue.peek())) {
-							pck.set_id(wait_queue.peek());
-							
+					if(probability>0.5 && probability<0.6) {
+						  //if(map.containsKey(wait_queue.peek())) {
+						pck.set_id(wait_queue.peek());
+			
 							map.put(pck.get_id(),(pck.stop_timer()-pck.start_timer())); //map.put(pck.get_id(),(pck.stop_timer()-map.getValue()));
-							int rmv_pck=wait_queue.poll();
-							packet_line.remove(rmv_pck);
-							 System.out.println ( "Priority queue values are: "+ wait_queue);
-						      
-							
-							}																												
-						}
+								int rmv_pck=wait_queue.poll();
+									packet_line.remove(rmv_pck);
+									
+										System.out.println("My packet line:" +  packet_line.size());
+										 probability=random();
+						}else {
+	 
+								System.out.println("Not packet broadcasted now");
+								 probability=random();
+	 			
+							}
 					}
 				}
 				
